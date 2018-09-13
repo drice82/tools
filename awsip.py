@@ -4,12 +4,15 @@ import string
 import math
 import os
 import json
-import collections
-import psutil
+#import collections
+#import psutil
 import commands
 
 #========自定义的内容==========
 #是否被墙
+def main():
+	print(ip_status())
+	
 def ip_status():
 	#14.215.177.39是百度的ip
 	#123.125.115.110 也是百度的ip
@@ -31,3 +34,6 @@ def ip_status():
 		return True
 	else:
 		return False
+	
+if __name__ == '__main__':
+    main()
