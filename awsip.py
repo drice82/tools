@@ -7,13 +7,16 @@
 #
 # See README for details
 #
-
+import socket
+import string
+import math
 import requests
 import json
 import time
 import yaml
 import os
 import sys
+import collections
 from subprocess import Popen, PIPE
 
 # CloudFlare api url.
@@ -38,6 +41,12 @@ else:
 
 
 def main():
+    if ip_status()==True:
+        die(
+            "GFW checking passed"
+        )
+
+
     if not os.path.isfile(CONFIG_FILE):
         die(
             "Configuration file not found. Please review the README and try "
