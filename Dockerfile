@@ -5,4 +5,4 @@ WORKDIR /cf_ddns
 COPY /root /
 RUN pip install --no-cache-dir -r requirements.txt
 
-CMD ["python", "/cf_ddns/cloudflare_ddns.py", "/cf_ddns/config.yaml"]
+CMD crond && python /cf_ddns/cloudflare_ddns.py /cf_ddns/config.yaml
