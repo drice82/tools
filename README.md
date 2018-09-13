@@ -1,3 +1,8 @@
+# Docker
+```
+docker run -d --restart=always --name=cfddns -v /home/cfddns/config.yaml:/cf_ddns/config.yaml cf_ddns:0.1
+```
+
 cloudflare-ddns
 ===============
 
