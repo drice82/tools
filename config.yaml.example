@@ -1,12 +1,11 @@
 %YAML 1.2
 
+# CloudFlare DDNS updater script config.
+---
+
 #AWS config
 instance_name: 'sgp1'
 static_ip_name: 'ip1'
-
-
-# CloudFlare DDNS updater script config.
----
 
 # CloudFlare API key
 # You can find this under Account > My account after logging into CloudFlare.
