@@ -66,13 +66,33 @@ def main():
         'X-Auth-Key': cf_key,
         'X-Auth-Email': cf_email,
     }
-### check ip
+    ### check ip
     if ip_status()==True:
-        die(
-            "GFW checking passed"
-        )
-### change ip
-    changeip()
+	exit()
+
+    #change ip
+    client = boto3.client('lightsail')
+    client.detach_static_ip(
+        staticIpName=static_ip_name
+    )
+
+    client.release_static_ip(
+        staticIpName=static_ip_name
+    )
+
+    client.allocate_static_ip(
+        staticIpName=static_ip_name
+    )
+
+    client.attach_static_ip(
+        staticIpName=static_ip_name,
+        instanceName=instance_name
+    )
+
+    client.get_static_ip(
+        staticIpName=static_ip_name
+    )
+
 
     ### Discover your public IP address.
     if aws_use_ec2metadata:
@@ -175,29 +195,6 @@ def main():
 
     return
 
-def changeip():
-    client = boto3.client('lightsail')
-    client.detach_static_ip(
-        staticIpName=static_ip_name
-    )
-
-    client.release_static_ip(
-        staticIpName=static_ip_name
-    )
-
-    client.allocate_static_ip(
-        staticIpName=static_ip_name
-    )
-
-    client.attach_static_ip(
-        staticIpName=static_ip_name,
-        instanceName=instance_name
-    )
-
-    response = client.get_static_ip(
-        staticIpName=static_ip_name
-    )
-    return
 
 def die(msg):
     log('error', msg)
