@@ -46,7 +46,9 @@ def main():
         die(
             "GFW checking passed"
         )
-
+    instance_name = config.get('instance_name')
+    static_ip_name = config.get('static_ip_name')
+    changeip()
 
     if not os.path.isfile(CONFIG_FILE):
         die(
@@ -173,6 +175,29 @@ def main():
 
     return
 
+def changeip():
+    client = boto3.client('lightsail')
+    client.detach_static_ip(
+        staticIpName=static_ip_name
+    )
+
+    client.release_static_ip(
+        staticIpName=static_ip_name
+    )
+
+    client.allocate_static_ip(
+        staticIpName=static_ip_name
+    )
+
+    client.attach_static_ip(
+        staticIpName=static_ip_name,
+        instanceName=instance_name
+    )
+
+    response = client.get_static_ip(
+        staticIpName=static_ip_name
+    )
+    return
 
 def die(msg):
     log('error', msg)
