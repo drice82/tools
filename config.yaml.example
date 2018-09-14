@@ -1,4 +1,10 @@
 %YAML 1.2
+
+#AWS config
+instance_name: 'sgp1'
+static_ip_name: 'ip1'
+
+
 # CloudFlare DDNS updater script config.
 ---
 
