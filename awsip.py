@@ -42,14 +42,6 @@ else:
 
 
 def main():
-    if ip_status()==True:
-        die(
-            "GFW checking passed"
-        )
-    instance_name = config.get('instance_name')
-    static_ip_name = config.get('static_ip_name')
-    changeip()
-
     if not os.path.isfile(CONFIG_FILE):
         die(
             "Configuration file not found. Please review the README and try "
@@ -59,7 +51,8 @@ def main():
     # Read config file
     with open(CONFIG_FILE, 'r') as f:
         config = yaml.load(f)
-
+    instance_name = config.get('instance_name')
+    static_ip_name = config.get('static_ip_name')
     cf_key = config.get('cf_key')
     cf_email = config.get('cf_email')
     cf_domain = config.get('cf_domain')
@@ -73,6 +66,13 @@ def main():
         'X-Auth-Key': cf_key,
         'X-Auth-Email': cf_email,
     }
+### check ip
+    if ip_status()==True:
+        die(
+            "GFW checking passed"
+        )
+### change ip
+    changeip()
 
     ### Discover your public IP address.
     if aws_use_ec2metadata:
