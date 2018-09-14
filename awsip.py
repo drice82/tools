@@ -17,6 +17,7 @@ import yaml
 import os
 import sys
 import collections
+import boto3
 from subprocess import Popen, PIPE
 
 # CloudFlare api url.
