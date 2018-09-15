@@ -46,6 +46,7 @@ auth_headers = {
 
 def main():
     if ip_status(ipaddr, ipport):
+	print time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time())) + " IP is OK"
         exit(0)
     else:
         time.sleep(3)
