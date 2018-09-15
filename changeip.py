@@ -25,28 +25,31 @@ TTL = '120'
 RECORD_TYPE = 'A'
 
 
-ipaddr = 'gp1.ip.com'
-ipport = 443
-instance_name = 'Ubuntu-1GB-Singapore-1'
-cf_key = config.get('cf_key')
-cf_email = config.get('cf_email')
-cf_domain = config.get('cf_domain')
-cf_subdomain = config.get('cf_subdomain')
-cf_service_mode = config.get('cf_service_mode')
-quiet = config.get('quiet')
+ipaddr = 'us5.node.com'
+ipport = 8080
+instance_name = 'agw-us1'
+
+aws_key_id = 'AKxxxxxxx7DA'
+aws_secret_key = 'UsxxxxxxxG+TF'
+aws_region = 'us-west-2'
+
+cf_key = '84xxxxxxxd'
+cf_email = 'name@gmail.com'
+cf_domain = 'node.com'
+cf_subdomain = 'us5'
+cf_service_mode = 0
+quiet = 'false'
 auth_headers = {
     'X-Auth-Key': cf_key,
-    }
+    'X-Auth-Email': cf_email,
+}
 
 def main():
-    print("Checking if your IP has been blocked by GFW")
     if ip_status(ipaddr, ipport):
-        print("IP is OK")
         exit(0)
     else:
         time.sleep(3)
         if ip_status(ipaddr, ipport):
-            print("IP is OK")
             exit(0)
         else:
             print("IP has been blocked, Changing your IP")
@@ -200,7 +203,12 @@ def die(msg):
 
 
 def changeip(instance_name):
-    client = boto3.client('lightsail')
+    client = boto3.client(
+        'lightsail',
+        aws_access_key_id=aws_key_id,
+        aws_secret_access_key = aws_secret_key,
+        region_name = aws_region,
+    )
     print("Stopping your instance, Please wait...")
     client.stop_instance(
         instanceName=instance_name,
@@ -215,9 +223,9 @@ def changeip(instance_name):
     response = client.get_instance(
         instanceName = instance_name,
     )
-    public_ip = response["instance"]["publicIpAddress"]
-    print ("Your new public ip is " public_ip)
-    return public_ip
+    ipv4_ip = response["instance"]["publicIpAddress"]
+    print ("Your new public ip is ", ipv4_ip)
+    return ipv4_ip
 
 
 if __name__ == '__main__':
