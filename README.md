@@ -5,5 +5,9 @@ docker run -d --restart=always --name=cronjobs -v /home/cronjob:/cronjob cronjob
 ```
 docker run -d --restart=always --name=cronjobs -v /home/cron/cronjob:/cronjob -v /home/cron/periodic:/etc/periodic cronjob:latest
 ```
+cronjob:
+scripts exec able
+periodic:
+15min/hourly/daily/weekly/monthly/
 
 
