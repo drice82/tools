@@ -2,3 +2,5 @@ requests>=2.11.1
 awscli>=1.16.12
 boto3>=1.9.3
 pysocks>=1.6.8
+pyyaml>=3.12
+requests>=2.11.1
